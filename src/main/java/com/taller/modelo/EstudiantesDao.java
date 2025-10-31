@@ -70,6 +70,37 @@ public class EstudiantesDao {
         return e;
     }
 
+    public Estudiantes ObtenerEstudiantePorNombre(String nombre) {
+        Estudiantes e = null;
+        String sql = "{CALL sp_obtener_estudiante_por_nombre(?)}";
+
+        try (Connection conn = ConexionDatabase.getInstance().getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+
+            cs.setString(1, nombre);
+            ResultSet rs = cs.executeQuery();
+
+            if (rs.next()) {
+                e = new Estudiantes(
+                    rs.getInt("estudiante_id"),
+                    rs.getString("identificacion"),
+                    rs.getString("nombre"),
+                    rs.getString("correo_institucional"),
+                    rs.getString("correo_personal"),
+                    rs.getString("telefono"),
+                    rs.getBoolean("es_vocero"),
+                    rs.getString("tipo_documento"),
+                    rs.getString("genero"),
+                    rs.getString("comentarios")
+                );
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error ObtenerEstudiantePorNombre: " + ex.getMessage());
+        }
+        return e;
+    }
+
     // -------------------- LISTAR TODOS --------------------
     public List<Estudiantes>listarEstudiantes() {
         List<Estudiantes> lista = new ArrayList<>();

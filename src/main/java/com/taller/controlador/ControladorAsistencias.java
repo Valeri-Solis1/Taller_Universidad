@@ -12,8 +12,8 @@ public class ControladorAsistencias {
     public boolean registrarAsistencia(com.taller.modelo.Asistencias a) {
         return asistenciaDao.registrarAsistencia(a);
     }
-    public com.taller.modelo.Asistencias obtenerAsistencia(int estudiante_id, int curso_id) {
-        return asistenciaDao.obtenerAsistencia(estudiante_id, curso_id);
+    public com.taller.modelo.Asistencias obtenerAsistencia(int estudiante_id) {
+        return asistenciaDao.obtenerAsistencia(estudiante_id);
     }
     public boolean actualizarAsistencia(com.taller.modelo.Asistencias a) {
         return asistenciaDao.actualizarAsistencia(a);

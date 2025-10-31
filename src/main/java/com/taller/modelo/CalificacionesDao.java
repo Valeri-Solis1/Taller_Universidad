@@ -30,7 +30,7 @@ public class CalificacionesDao {
             return exito;
     }
 
-    public Calificaciones obtenerCalificacion(int estudiante_id, int componente_evalucion_id) {
+    public Calificaciones obtenerCalificacion(int estudiante_id) {
         Calificaciones c= null;
         String sql = "{CALL sp_obtener_calificacion_estudiante(?, ?)}";
 
@@ -38,7 +38,6 @@ public class CalificacionesDao {
              CallableStatement cs = conn.prepareCall(sql)) {
 
             cs.setInt(1, estudiante_id);
-            cs.setInt(2, componente_evalucion_id);
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {
@@ -96,6 +95,26 @@ public class CalificacionesDao {
 
         } catch (SQLException ex) {
             System.err.println("Error eliminarCalificacion: " + ex.getMessage());
+        }
+        return exito;
+    }
+
+    public boolean CalcularNotaFinal(int estudiante_id) {
+        boolean exito = false;
+        String sql = "{CALL sp_calcular_nota_final(?)}";
+
+        try (Connection conn = ConexionDatabase.getInstance().getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+
+            cs.setInt(1, estudiante_id);
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                System.out.println(rs.getString("resultado"));
+                exito = rs.getString("resultado").startsWith("Éxito");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error CalcularNotaFinal: " + ex.getMessage());
         }
         return exito;
     }

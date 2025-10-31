@@ -34,7 +34,7 @@ public class AsistenciasDao {
     }
 
     // -------------------- OBTENER POR ID --------------------
-    public Asistencias obtenerAsistencia(int estudiante_id, int curso_id) {
+    public Asistencias obtenerAsistencia(int estudiante_id) {
         Asistencias a= null;
         String sql = "{CALL sp_obtener_asistencias_estudiante(?)}";
 
@@ -42,7 +42,6 @@ public class AsistenciasDao {
              CallableStatement cs = conn.prepareCall(sql)) {
 
             cs.setInt(1, estudiante_id);
-            cs.setInt(2, curso_id);
             ResultSet rs = cs.executeQuery();
 
             if (rs.next()) {

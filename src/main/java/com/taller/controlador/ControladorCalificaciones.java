@@ -12,8 +12,8 @@ public class ControladorCalificaciones {
     public boolean registrarCalificacion(com.taller.modelo.Calificaciones c) {
         return calificacionDao.registrarCalificacion(c);
     }
-    public com.taller.modelo.Calificaciones obtenerCalificacion(int estudiante_id, int componente_evalucion_id) {
-        return calificacionDao.obtenerCalificacion(estudiante_id, componente_evalucion_id);
+    public com.taller.modelo.Calificaciones obtenerCalificacion(int estudiante_id) {
+        return calificacionDao.obtenerCalificacion(estudiante_id);
     }
     public boolean actualizarCalificacion(com.taller.modelo.Calificaciones c) {
         return calificacionDao.actualizarCalificacion(c);
@@ -21,5 +21,7 @@ public class ControladorCalificaciones {
     public boolean eliminarCalificacion(int id) {
         return calificacionDao.eliminarCalificacion(id);
     }
-    
+    public boolean CalcularNotaFinal(int estudiante_id) {
+        return calificacionDao.CalcularNotaFinal(estudiante_id);
+    }
 }
